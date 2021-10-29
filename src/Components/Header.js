@@ -75,7 +75,7 @@ export default withRouter(({ location: { pathname } }) => (
 /** withRouter란
  * withRouter는 다른 컴포넌트를 감싸는 컴포넌트.
  * Router에 어떠한 정보를 준다
- * 이 파일에서 export 하는 건 다른 컴포넌트가 안에 있는 withRouter
+ * 이 파일에서 export 하는 건 안에 다른 컴포넌트가 있는 withRouter
  * 그래서 props에 접근할 수 있다. withRouter를 지우면 props가져올 수 없음
  * => withRouter로 어떤 컴포넌트와도 연결할 수 있다!
  */
