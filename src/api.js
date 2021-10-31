@@ -33,13 +33,24 @@ export default api;
 */
 
 export const moviesApi = {
-  nowPlaying: () => api.get("movie/now_playing",{
-    params: {
-      api_key: "e30fc4781e246167a366fcf160f7961d",
+  nowPlaying: () =>
+    api.get("movie/now_playing", {
+      params: {
+        api_key: "e30fc4781e246167a366fcf160f7961d",
       },
-  }),
-  upComing: () => api.get("movie/upcoming"),
-  popular: () => api.get("movie/popular"),
+    }),
+  upComing: () =>
+    api.get("movie/upcoming", {
+      params: {
+        api_key: "e30fc4781e246167a366fcf160f7961d",
+      },
+    }),
+  popular: () =>
+    api.get("movie/popular", {
+      params: {
+        api_key: "e30fc4781e246167a366fcf160f7961d",
+      },
+    }),
   movieDetail: (id) =>
     api.get(`movie/${id}`, {
       params: {
@@ -56,9 +67,24 @@ export const moviesApi = {
 };
 
 export const tvApi = {
-  topRated: () => api.get("tv/top_rated"),
-  popular: () => api.get("tv/popular"),
-  airing: () => api.get("tv/airing_today"),
+  topRated: () =>
+    api.get("tv/top_rated", {
+      params: {
+        api_key: "e30fc4781e246167a366fcf160f7961d",
+      },
+    }),
+  popular: () =>
+    api.get("tv/popular", {
+      params: {
+        api_key: "e30fc4781e246167a366fcf160f7961d",
+      },
+    }),
+  airing: () =>
+    api.get("tv/airing_today", {
+      params: {
+        api_key: "e30fc4781e246167a366fcf160f7961d",
+      },
+    }),
   showDetail: (id) =>
     api.get(`tv/${id}`, {
       params: {
@@ -94,4 +120,3 @@ api key, language, append_to_re sponse:video를 전송하고
 URL은 string이여야 하기 때문에 encodeURLComponent로 인코딩을 해줘야한다.
 encodeURLComponent를 하면, 값을 인코딩하고, 그 문자열로 검색을 한다. 
 */
-

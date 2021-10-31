@@ -24,9 +24,30 @@ export default class extends React.Component {
        * 객체 비구조화 할당으로 가져올 경우 <img src="./nowPlaying_Deconstruction.png"/>
        */
       const {
-        data: { results },
+        data: { results: _nowPlaying },
       } = await moviesApi.nowPlaying();
-      console.log(results);
+
+      const {
+        data: { results: _upComing },
+      } = await moviesApi.upComing();
+
+      const {
+        data: { results: _popular },
+      } = await moviesApi.popular();
+      // throw Error();
+      //   data: { results: _nowPlaying }, 이것과 같지만
+      // 다른것들도 result가 필요하기 때문에, 변수명을 이렇게 바꿈 (내 이해를 위해 _를 붙임)
+      // 어려워보이지만 알고보면 전혀 어렵지 않음! 그냥 객체구조분해해서 그 안의 객체를 가져오고, 변수명만 바꾼거야
+
+      this.setState({
+        nowPlaying: _nowPlaying,
+        upComing: _upComing,
+        popular: _popular,
+        // nowPlaying,
+      });
+
+      // 이제, 위의 state값을 setState로 넣을 수 있다.
+      // 이름을 통일시켜서 nowPlaying,이라고만 해도 JS는 이해한다
     } catch {
       this.setState({
         error: "Can't find movies information.",
@@ -40,6 +61,7 @@ export default class extends React.Component {
 
   render() {
     const { nowPlaying, upComing, popular, error, loading } = this.state;
+    // console.log(this.state);
     return (
       <HomePresenter
         nowPlaying={nowPlaying}
