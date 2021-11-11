@@ -62,6 +62,7 @@ export const moviesApi = {
       params: {
         // query: term,
         query: encodeURIComponent(term),
+        api_key: "e30fc4781e246167a366fcf160f7961d",
       },
     }),
 };
@@ -95,6 +96,7 @@ export const tvApi = {
     api.get("search/tv", {
       params: {
         query: encodeURIComponent(term),
+        api_key: "e30fc4781e246167a366fcf160f7961d",
       },
     }),
 };

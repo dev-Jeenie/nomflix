@@ -7,8 +7,9 @@ import {
 } from "react-router-dom";
 import Home from "Routes/Home";
 import TV from "Routes/TV";
-import Header from "Components/Header";
 import Search from "Routes/Search";
+import Detail from "Routes/Detail";
+import Header from "Components/Header";
 
 export default () => (
   <Router>
@@ -17,8 +18,13 @@ export default () => (
       <Switch>
         <Route path="/" exact component={Home} />
         <Route path="/tv" exact component={TV} />
-        {/* <Route path="/tv/popular" render={() => <h1>Popular</h1>} /> */}
         <Route path="/search" component={Search} />
+        <Route path="/movie/:id" component={Detail} />
+        <Route path="/tv/:id" component={Detail} />
+        {/*id를 가지고 Detail로 이동할 수 있게 하기 위해,
+        기본적으로 router가 route들에게 props를 전달함.
+        id는 match의 params로 이미 전달하고 있다 */}
+
         <Redirect from="*" to="/" />
       </Switch>
     </>
