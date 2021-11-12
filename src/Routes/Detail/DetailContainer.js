@@ -1,12 +1,21 @@
 import React from "react";
 import DetailPresenter from "./DetailPresenter";
+import { moviesApi, tvApi } from "api";
 
 export default class extends React.Component {
-  state = {
-    result: null,
-    error: null,
-    loading: true,
-  };
+  constructor(props) {
+    super(props); // 생성자 클래스
+    const {
+      location: { pathname },
+    } = props;
+    // 이때의 props는 pathname이 아님.
+    this.state = {
+      result: null,
+      error: null,
+      loading: true,
+      isMovie: pathname.includes("/movie/"),
+    };
+  }
 
   async componentDidMount() {
     const {
@@ -14,18 +23,39 @@ export default class extends React.Component {
         params: { id },
       }, //props안의 match.params.id와 동일
       history: { push },
-      location: { pathname },
     } = this.props;
+    const { isMovie } = this.state;
     const parsedId = parseInt(id);
     if (isNaN(parsedId)) {
-      push("/");
-      return;
+      return push("/");
       // id에 숫자가 입력된게 아니라면 초기화면으로 돌아가게함. isNaN라면 push하고 함수를 종료한다
+    }
+    let result = null;
+    try {
+      if (isMovie) {
+        const request = await moviesApi.movieDetail(parsedId);
+        result = request.data;
+        // ({data:result} = await moviesApi.movieDetail(parsedId);) 이렇게 한번에 파고들어갈 수 있  음
+        // Destructuring assignment
+      } else {
+        const request = await tvApi.showDetail(parsedId);
+        // ({data:result} = await tvApi.showDetail(parsedId);) 이렇게 한번에 파고들어갈 수 있음
+        result = request.data;
+      }
+      console.log(result);
+    } catch {
+      this.setState({ error: "Can't find anything." });
+    } finally {
+      this.setState({ loading: false, result: result });
+      // 로딩을 끝내고, result가 tv든 movie든 덮어쓴다
+      // isMovie라면 = 주소에 movie가 있다면 movieApi를 호출해서 받아온 것을 request에 넣고,
+      // 그 request 안의 data를 result에 할당하고
+      // 받아온 result를 state의 result로 대체한다
     }
   }
 
   render() {
-    console.log(this.props);
+    console.log(this.state);
     const { result, error, loading } = this.state;
     return <DetailPresenter result={result} error={error} loading={loading} />;
   }

@@ -55,6 +55,7 @@ export const moviesApi = {
     api.get(`movie/${id}`, {
       params: {
         append_to_response: "videos",
+        api_key: "e30fc4781e246167a366fcf160f7961d",
       },
     }),
   search: (term) =>
@@ -90,6 +91,7 @@ export const tvApi = {
     api.get(`tv/${id}`, {
       params: {
         append_to_response: "videos",
+        api_key: "e30fc4781e246167a366fcf160f7961d",
       },
     }),
   search: (term) =>
