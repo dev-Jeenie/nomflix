@@ -7,7 +7,7 @@ import { moviesApi } from "api";
 export default class extends React.Component {
   state = {
     nowPlaying: null,
-    upComing: null,
+    upcoming: null,
     popular: null,
     error: null,
     loading: true,
@@ -24,15 +24,13 @@ export default class extends React.Component {
        * 객체 비구조화 할당으로 가져올 경우 <img src="./nowPlaying_Deconstruction.png"/>
        */
       const {
-        data: { results: _nowPlaying },
+        data: { results: nowPlaying },
       } = await moviesApi.nowPlaying();
-
       const {
-        data: { results: _upComing },
-      } = await moviesApi.upComing();
-
+        data: { results: upcoming },
+      } = await moviesApi.upcoming();
       const {
-        data: { results: _popular },
+        data: { results: popular },
       } = await moviesApi.popular();
       // throw Error();
       //   data: { results: _nowPlaying }, 이것과 같지만
@@ -40,17 +38,15 @@ export default class extends React.Component {
       // 어려워보이지만 알고보면 전혀 어렵지 않음! 그냥 객체구조분해해서 그 안의 객체를 가져오고, 변수명만 바꾼거야
 
       this.setState({
-        nowPlaying: _nowPlaying,
-        upComing: _upComing,
-        popular: _popular,
-        // nowPlaying,
+        nowPlaying,
+        upcoming,
+        popular,
       });
-
       // 이제, 위의 state값을 setState로 넣을 수 있다.
       // 이름을 통일시켜서 nowPlaying,이라고만 해도 JS는 이해한다
     } catch {
       this.setState({
-        error: "Can't find movies information.",
+        error: "Can't find movie information.",
       });
     } finally {
       this.setState({
@@ -60,12 +56,11 @@ export default class extends React.Component {
   }
 
   render() {
-    const { nowPlaying, upComing, popular, error, loading } = this.state;
-    // console.log(this.state);
+    const { nowPlaying, upcoming, popular, error, loading } = this.state;
     return (
       <HomePresenter
         nowPlaying={nowPlaying}
-        upComing={upComing}
+        upcoming={upcoming}
         popular={popular}
         error={error}
         loading={loading}
